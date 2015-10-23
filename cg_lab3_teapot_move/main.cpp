@@ -16,7 +16,7 @@ bool bWire = false;
 int wHeight = 0;
 int wWidth = 0;
 
-int teapot_rotation = 0;
+int teapot_rot = 0;
 float teapot_pos[2] = {0, 0};
 
 void Draw_Leg()
@@ -31,7 +31,7 @@ void Draw_Scene()
     glTranslatef(0, 0, 4+1);
     glRotatef(90, 1, 0, 0);
     glTranslatef(teapot_pos[0], 0, teapot_pos[1]);
-    glRotated(teapot_rotation, 0, 1, 0);
+    glRotated(teapot_rot, 0, 1, 0);
     glutSolidTeapot(1);
     glPopMatrix();
 
@@ -103,7 +103,7 @@ float alpha = 0, theta = pi / 2, distance = 8.0;
 float eye[] = {0, 0, 8};
 float center[] = {0, 0, 0};
 
-void cal_eye() {
+void calc_eye() {
     eye[0] = distance * cos(alpha) * cos(theta);
     eye[2] = distance * cos(alpha) * sin(theta);
     eye[1] = distance * sin(alpha);
@@ -125,7 +125,7 @@ void key(unsigned char k, int x, int y)
             if (theta >= 2 * pi) {
                 theta -= 2 * pi;
             }
-            cal_eye();
+            calc_eye();
             break;
         }
         case 'd': {
@@ -133,37 +133,35 @@ void key(unsigned char k, int x, int y)
             if (theta < 0) {
                 theta += 2 * pi;
             }
-            cal_eye();
+            calc_eye();
             break;
         }
         case 'w': {
-            alpha -= 0.1;
-            if (alpha <= - pi / 2) {
-                alpha += pi;
+            if (alpha - 0.1 >= - pi / 2) {
+                alpha -= 0.1;
             }
-            cal_eye();
+            calc_eye();
             break;
         }
         case 's': {
-            alpha += 0.1;
-            if (alpha >= pi / 2) {
-                alpha -= pi;
+            if (alpha + 0.1 <= pi / 2) {
+                alpha += 0.1;
             }
-            cal_eye();
+            calc_eye();
             break;
         }
         case 'z': {
-            if (distance < 30) {
+            if (distance < 20) {
                 distance += 0.5;
             }
-            cal_eye();
+            calc_eye();
             break;
         }
         case 'c': {
             if (distance > 0.5) {
                 distance -= 0.5;
             }
-            cal_eye();
+            calc_eye();
             break;
         }
 
@@ -192,7 +190,7 @@ void key(unsigned char k, int x, int y)
             break;
         }
         case 'e': {
-            teapot_rotation = (teapot_rotation + 10) % 360;
+            teapot_rot = (teapot_rot + 10) % 360;
             break;
         }
     }
@@ -224,7 +222,6 @@ void redraw()
     glLightfv(GL_LIGHT0, GL_AMBIENT, white);
     glEnable(GL_LIGHT0);
 
-//	glTranslatef(0.0f, 0.0f,-6.0f);			// Place the triangle at Center
     glRotatef(fRotate, 0, 1.0f, 0);			// Rotate around Y axis
     glRotatef(-90, 1, 0, 0);
     glScalef(0.2, 0.2, 0.2);
@@ -232,7 +229,6 @@ void redraw()
 
     if (bAnim) fRotate    += 0.5f;
 
-    //todo; hint: when you want to rotate the teapot, you may like to add another line here =)
     glutSwapBuffers();
 }
 
