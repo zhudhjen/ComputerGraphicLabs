@@ -1,3 +1,8 @@
+/*
+ * @title   Teapot Move
+ * @author  Pitaya Zhu
+ */
+
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <GLUT/glut.h>
@@ -237,7 +242,7 @@ int main (int argc,  char *argv[])
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
     glutInitWindowSize(480,480);
-    int windowHandle = glutCreateWindow("Simple GLUT App");
+    int windowHandle = glutCreateWindow("CG Lab 3 - Teapot Move");
 
     glutDisplayFunc(redraw);
     glutReshapeFunc(reshape);
